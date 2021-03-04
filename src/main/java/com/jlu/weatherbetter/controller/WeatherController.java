@@ -13,7 +13,7 @@ public class WeatherController {
     private WeatherService weatherService;
 
     @GetMapping
-    public String getIndex(Model model){
+    public String getIndex(Model model) {
         Response response = weatherService.getForecast("55068");
         model.addAttribute("data", response);
         return "index";
