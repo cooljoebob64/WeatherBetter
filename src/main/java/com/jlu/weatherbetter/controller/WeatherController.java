@@ -14,13 +14,6 @@ public class WeatherController {
     @Autowired
     private WeatherService weatherService;
 
-//    @GetMapping
-//    public String getIndex(Model model) {
-//        Response response = weatherService.getForecast("55068");
-//        model.addAttribute("data", response);
-//        return "index";
-//    }
-
     @GetMapping
     public String getIndex(Model model) {
         model.addAttribute("request", new Request());
