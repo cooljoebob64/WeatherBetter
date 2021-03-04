@@ -30,7 +30,9 @@ public class WeatherService {
 
 
         try {
-            zipCodeRepository.save(new ZipCode(zipCode));
+            ZipCode newZip = new ZipCode();
+                    newZip.setZipCode(zipCode);
+            zipCodeRepository.save(newZip);
             return restTemplate.getForObject(url, Response.class);
         } catch (HttpClientErrorException ex) {
             Response response = new Response();
@@ -40,8 +42,6 @@ public class WeatherService {
     }
 
     public List<ZipCode> getRecentSearches() {
-        Sort sort;
-        Pageable myPageable = PageRequest.of(0, 10, Sort.unsorted());
         List<ZipCode> recentSearches =
                 zipCodeRepository.findAll(
                         PageRequest.of(

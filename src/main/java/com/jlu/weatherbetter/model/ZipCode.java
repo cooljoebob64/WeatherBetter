@@ -1,6 +1,7 @@
 package com.jlu.weatherbetter.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,8 +26,4 @@ public class ZipCode {
     private Date createdAt;
 
     private String zipCode;
-
-    public ZipCode(String zipCode) {
-        this.zipCode=zipCode;
-    }
 }
