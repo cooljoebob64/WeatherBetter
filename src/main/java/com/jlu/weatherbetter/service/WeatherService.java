@@ -5,9 +5,14 @@ import com.jlu.weatherbetter.model.ZipCode;
 import com.jlu.weatherbetter.repository.ZipCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @Service
 public class WeatherService {
@@ -27,11 +32,23 @@ public class WeatherService {
         try {
             zipCodeRepository.save(new ZipCode(zipCode));
             return restTemplate.getForObject(url, Response.class);
-        }
-        catch (HttpClientErrorException ex) {
+        } catch (HttpClientErrorException ex) {
             Response response = new Response();
             response.setName("error");
             return response;
         }
+    }
+
+    public List<ZipCode> getRecentSearches() {
+        Sort sort;
+        Pageable myPageable = PageRequest.of(0, 10, Sort.unsorted());
+        List<ZipCode> recentSearches =
+                zipCodeRepository.findAll(
+                        PageRequest.of(
+                                0,
+                                10,
+                                Sort.by("createdAt").descending()))
+                        .getContent();
+        return recentSearches;
     }
 }

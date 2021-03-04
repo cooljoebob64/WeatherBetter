@@ -6,5 +6,4 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface ZipCodeRepository extends PagingAndSortingRepository<ZipCode, Long> {
-    Page<ZipCode> findAll(Pageable page);
 }

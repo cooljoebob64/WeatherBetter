@@ -17,6 +17,7 @@
             </button>
         </div>
     </form>
+
     <span th:if="${data != null && data.name == 'error'}">Invalid zip code. Weather data not found.</span>
     <div  th:if="${data != null && data.name != 'error'}">
         <hr>
@@ -27,6 +28,16 @@
         <p><b>Conditions:</b> <span th:text="${data.weather[0].get('description')}"></span>
             <img th:src="@{${'http://openweathermap.org/img/w/'
                 + data.weather[0].get('icon') + '.png'}}"></p>
+    </div>
+
+    <div>
+        <h3>Recent Searches:</h3>
+        <ul>
+            <li th:each="search:${recentSearches}">
+                <p th:text="${search.zipCode}"></p>
+                <p th:text="${search.createdAt}"></p>
+            </li>
+        </ul>
     </div>
 </div>
 
